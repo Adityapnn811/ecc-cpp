@@ -1,22 +1,21 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include "bignum/bignum.h"
+#include <string>
+#include "math/math.h"
 
 class Point {
     private:
-        bignum x;
-        bignum y;
+        LL x;
+        LL y;
     public:
-        Point(bignum x, bignum y);
-        Point operator+(const Point& other);
-        Point operator-(const Point& other);
-        Point operator*(const bignum& scalar);
-        Point double_point();
-        bignum getX();
-        bignum getY();
-        void setX(bignum x);
-        void setY(bignum y);
+        Point(LL x, LL y);
+        Point add(const Point& other, LL p);
+        Point substract(const Point& other, LL p);
+        Point multiply(const LL& scalar, LL a, LL p);
+        Point double_point(LL a, LL p);
+        bool isInfinite();
+        bool isOnCurve(LL a, LL b, LL p);
         std::string to_string();
 };
 
