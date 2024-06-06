@@ -45,7 +45,7 @@ int main() {
     printf("Private key: %lld\n", privateKey);
     printf("Public key: %s\n", publicKey.to_string().c_str());
 
-    LL message = 3232;
+    LL message = 3;
     Point encoded = ecc.encodeMessage(message);
     printf("Encoded message: %s\n", encoded.to_string().c_str());
 
