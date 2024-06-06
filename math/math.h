@@ -1,6 +1,8 @@
 #ifndef MATH_H
 #define MATH_H
 
+#include <cstdlib>
+
 #define LL long long
 
 // Return an array of bignums containing the prime factors of n
@@ -15,5 +17,6 @@ LL powMod(LL base, LL exp, LL mod);
 // Calculate the modulo
 LL mod(LL a, LL mod);
 
+LL llrand();
 
 #endif

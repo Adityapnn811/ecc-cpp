@@ -9,6 +9,7 @@ class Point {
         LL x;
         LL y;
     public:
+        Point();
         Point(LL x, LL y);
         Point add(const Point& other, LL p);
         Point substract(const Point& other, LL p);
@@ -16,6 +17,8 @@ class Point {
         Point double_point(LL a, LL p);
         bool isInfinite();
         bool isOnCurve(LL a, LL b, LL p);
+        LL getX();
+        LL getY();
         std::string to_string();
 };
 

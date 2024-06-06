@@ -1,5 +1,6 @@
 #include "math/math.h"
-#include "point/Point.h"
+#include "point/point.h"
+#include "ecc/ecc.h"
 #include <stdio.h>
 
 int main() {
@@ -27,10 +28,41 @@ int main() {
 
     Point p3 = p1.add(p2, p);
     printf("p2+ p1 = %s\n", p3.to_string().c_str());
-    p1 = p1.double_point(a, p);
-    p1 = p1.double_point(a, p);
-    p1 = p1.double_point(a, p);
+    // p1 = p1.add(p1, p);
+    // p1 = p1.add(p1, p);
+    // p1 = p1.add(p1, p);
+    // p1 = p1.add(p1, p);
     // p1 = p1.double_point(a, p);
-    printf("Double p1: %s\n", p1.to_string().c_str());
+    // printf("Double p1: %s\n", p1.to_string().c_str());
+    p1 = p1.multiply(5, a, p);
+    printf("Multiply p1: %s\n", p1.to_string().c_str());
+
+    // Test ECC
+    ECC ecc = ECC();
+    LL privateKey;
+    Point publicKey;
+    ecc.generateKeyPair(&privateKey, &publicKey);
+    printf("Private key: %lld\n", privateKey);
+    printf("Public key: %s\n", publicKey.to_string().c_str());
+
+    LL message = 3232;
+    Point encoded = ecc.encodeMessage(message);
+    printf("Encoded message: %s\n", encoded.to_string().c_str());
+
+    LL decoded = ecc.decodeMessage(encoded);
+    printf("Decoded message: %lld\n", decoded);
+
+    Point* ciphertext = ecc.encryptMessage(encoded, publicKey);
+    printf("Ciphertext: [%s, %s]\n", ciphertext[0].to_string().c_str(), ciphertext[1].to_string().c_str());
+
+    Point decrypted = ecc.decryptMessage(ciphertext, privateKey);
+    printf("Decrypted message: %s\n", decrypted.to_string().c_str());
+
+    // Decode the decrypted
+    LL decodedDecrypted = ecc.decodeMessage(decrypted);
+    printf("Decoded decrypted message: %lld\n", decodedDecrypted);
+
+    // Mod -1 % 6
+    printf("%lld\n", mod(-1, 6));
     return 0;
 }

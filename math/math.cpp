@@ -63,8 +63,8 @@ LL* tonelliShanks(LL a, LL m) {
         }
         LL b = powMod(c, powMod(2, m1 - i - 1, m - 1), m);
         LL b2 = powMod(b, 2, m);
-        r = (r * b) % m;
-        t = (t * b2) % m;
+        r = mod((r * b), m);
+        t = mod((t * b2) , m);
         c = b2;
         m1 = i;
     }
@@ -73,19 +73,29 @@ LL* tonelliShanks(LL a, LL m) {
     return result;
 }
 
-LL powMod(LL base, LL exp, LL mod) {
+LL powMod(LL base, LL exp, LL m) {
     LL result = 1;
-    base = base % mod;
+    base = mod(base, m);
     while (exp > 0) {
-        if (exp % 2 == 1) {
-            result = (result * base) % mod;
+        if (mod(exp, 2) == 1) {
+            result = mod((result * base), m);
         }
         exp = exp >> 1;
-        base = (base * base) % mod;
+        base = mod((base * base), m);
     }
     return result;
 }
 
 LL mod(LL a, LL mod) {
     return ((a % mod) + mod) % mod;
+}
+
+LL llrand(){
+{
+    if (sizeof(int) < sizeof(LL))
+        return (static_cast<LL>(rand()) << (sizeof(int) * 8)) |
+               rand();
+
+    return rand();
+}
 }
