@@ -1,4 +1,5 @@
 #include "math.h"
+#include <random>
 #include <stdio.h>
 
 LL* gcdExtended(LL a, LL b) {
@@ -92,10 +93,15 @@ LL mod(LL a, LL mod) {
 
 LL llrand(){
 {
-    if (sizeof(int) < sizeof(LL))
-        return (static_cast<LL>(rand()) << (sizeof(int) * 8)) |
-               rand();
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> randDis(100*100*100, RAND_MAX);
+    if (sizeof(int) < sizeof(LL)){
 
-    return rand();
+        return (static_cast<LL>(randDis(dev)) << (sizeof(int) * 8)) |
+               randDis(dev);
+    }
+
+    return randDis(dev);
 }
 }
